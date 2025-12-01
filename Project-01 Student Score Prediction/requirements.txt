@@ -1,0 +1,8 @@
+# Required packages for Student Score Prediction System
+numpy
+pandas
+matplotlib
+seaborn
+scikit-learn
+mlflow
+dvc
