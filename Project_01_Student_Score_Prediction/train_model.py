@@ -439,7 +439,7 @@ def main():
     print("="*60)
     
     # Initialize predictor
-    data_path = "data/Students Performance .csv"
+    data_path ="C:\\Users\\Ayush Reddy\\Desktop\\AI _Engineering\\Project_01_Student_Score_Prediction\\data\\StudentsPerformance.csv"
     predictor = StudentScorePredictor(data_path)
     
     # Load and preprocess data

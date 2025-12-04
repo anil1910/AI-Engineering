@@ -1,0 +1,14 @@
+artifact_uri: file:C:/Users/Ayush Reddy/Desktop/AI _Engineering/mlruns/291431993855236008/6754c4a36a584c27887d30ec3cfdb4e4/artifacts
+end_time: 1764657470854
+entry_point_name: ''
+experiment_id: '291431993855236008'
+lifecycle_stage: active
+run_id: 6754c4a36a584c27887d30ec3cfdb4e4
+run_name: Polynomial_Regression_Degree_2
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1764657467953
+status: 3
+tags: []
+user_id: Ayush Reddy
