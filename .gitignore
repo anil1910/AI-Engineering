@@ -1,4 +1,6 @@
+# ---------------------------------------------------
 # SQL Agent ignores
+# ---------------------------------------------------
 sql_agent/venv/
 sql_agent/.env
 sql_agent/__pycache__/
@@ -6,16 +8,37 @@ sql_agent/sql_knowledge_base/*.csv
 sql_agent/sql_knowledge_base/*.xlsx
 sql_agent/sql_knowledge_base/*.xls
 
+# ---------------------------------------------------
 # Python ignores
+# ---------------------------------------------------
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+*.log
 
+# ---------------------------------------------------
+# Virtual Environments
+# ---------------------------------------------------
+venv/
+common_venv/
+.env
+
+# ---------------------------------------------------
+# MLflow Files
+# ---------------------------------------------------
+mlruns/
+models/
+artifacts/
+
+# ---------------------------------------------------
 # VS Code settings
+# ---------------------------------------------------
 .vscode/
 
+# ---------------------------------------------------
 # System files
+# ---------------------------------------------------
 Thumbs.db
 desktop.ini
-
-# Workspace-level virtual environment
-venv/
+.DS_Store
