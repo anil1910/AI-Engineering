@@ -3,14 +3,24 @@
 from uuid import uuid4
 from dotenv import load_dotenv
 from pathlib import Path
-from langchain.chains import RetrievalQAWithSourcesChain
+#from langchain.chains import RetrievalQAWithSourcesChain
+#from langchain.chains.retrieval_qa.base import RetrievalQA
+# OR:
+#from langchain.chains.retrieval_qa.base import RetrievalQAWithSourcesChain
+from langchain_core.prompts import PromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.runnables import RunnablePassthrough
 from langchain_community.document_loaders import UnstructuredURLLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+#from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 from langchain_groq import ChatGroq
 from langchain_huggingface.embeddings import HuggingFaceEmbeddings
 
-load_dotenv()
+
+load_dotenv(dotenv_path=Path(__file__).parent / ".env", override=True)
+
+
 
 # Constants
 CHUNK_SIZE = 1000
@@ -26,7 +36,17 @@ def initialize_components():
     global llm, vector_store
 
     if llm is None:
-        llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0.9, max_tokens=500)
+        # llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0.9, max_tokens=500) 
+        # #llama-3.1-8b-instant"
+        import os
+
+        llm = ChatGroq(
+        api_key=os.environ["GROQ_API_KEY"],
+        model="llama-3.1-8b-instant",
+        temperature=0.9,
+        max_tokens=500
+        )
+
 
     if vector_store is None:
         ef = HuggingFaceEmbeddings(
@@ -81,13 +101,30 @@ def generate_answer(query):
     return result['answer'], sources
 
 
+# if __name__ == "__main__":
+#     urls = [
+#         "https://www.cnbc.com/2024/12/21/how-the-federal-reserves-rate-policy-affects-mortgages.html",
+#         "https://www.cnbc.com/2024/12/20/why-mortgage-rates-jumped-despite-fed-interest-rate-cut.html"
+#     ]
+
+#     process_urls(urls)
+#     answer, sources = generate_answer("Tell me what was the 30 year fixed mortagate rate along with the date?")
+#     print(f"Answer: {answer}")
+#     print(f"Sources: {sources}")
+
 if __name__ == "__main__":
     urls = [
         "https://www.cnbc.com/2024/12/21/how-the-federal-reserves-rate-policy-affects-mortgages.html",
         "https://www.cnbc.com/2024/12/20/why-mortgage-rates-jumped-despite-fed-interest-rate-cut.html"
     ]
 
-    process_urls(urls)
-    answer, sources = generate_answer("Tell me what was the 30 year fixed mortagate rate along with the date?")
-    print(f"Answer: {answer}")
-    print(f"Sources: {sources}")
+    # IMPORTANT: consume the generator
+    for status in process_urls(urls):
+        print(status)
+
+    answer, sources = generate_answer(
+        "Tell me what was the 30 year fixed mortgage rate along with the date?"
+    )
+
+    print("\nAnswer:\n", answer)
+    print("\nSources:\n", sources)
