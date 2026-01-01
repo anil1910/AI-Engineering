@@ -6,7 +6,7 @@ from langchain_core.exceptions import OutputParserException
 from dotenv import load_dotenv
 load_dotenv()
 
-llm = ChatGroq(model_name="llama-3.3-70b-versatile")
+llm = ChatGroq(model_name="llama-3.1-8b-instant")
 
 
 # Mock function to extract financial data (replace with actual function)
